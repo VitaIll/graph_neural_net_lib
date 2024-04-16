@@ -1,0 +1,12 @@
+setup.py
+diadicNet/__init__.py
+diadicNet/error_function.py
+diadicNet/feature_extractor.py
+diadicNet/input_layer.py
+diadicNet/input_neuron.py
+diadicNet/optimizer.py
+diadicNet.egg-info/PKG-INFO
+diadicNet.egg-info/SOURCES.txt
+diadicNet.egg-info/dependency_links.txt
+diadicNet.egg-info/requires.txt
+diadicNet.egg-info/top_level.txt
