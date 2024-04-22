@@ -16,6 +16,8 @@ class InputLayer:
                  
                  idx_tuple     = (modeled_unit, self.count)
                  neuron        = InputNeuron (idx_tuple ,sub_matrix)
+                
+                 self.neuron_list.append(neuron)
                  
                  self.count    += 1
                  

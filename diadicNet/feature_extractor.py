@@ -21,8 +21,12 @@ class FeatureExtractor:
     def centrality (adj_matrix: np.ndarray) -> float:
         
         G = nx.from_numpy_array(adj_matrix) 
+        
+        node_dictionary = nx.degree_centrality (G)
+        centrality_vals = list(node_dictionary.values())
+        centrality_vals = np.array(centrality_vals)
 
-        return nx.degree_centrality (G)
+        return centrality_vals.mean()
     
     
     ''' Method computing average clustering coefficient.''' 
