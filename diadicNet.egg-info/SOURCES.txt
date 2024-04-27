@@ -2,6 +2,8 @@ setup.py
 diadicNet/__init__.py
 diadicNet/error_function.py
 diadicNet/feature_extractor.py
+diadicNet/hidden_layer.py
+diadicNet/hidden_neuron.py
 diadicNet/input_layer.py
 diadicNet/input_neuron.py
 diadicNet/optimizer.py

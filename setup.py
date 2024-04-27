@@ -9,5 +9,5 @@ setup (
     author       = 'Vit Illichmann',
     author_email = 'vit.Illichmann@gmail.com',
 
-    install_requires = [  'numpy', 'networkx'  ]
+    install_requires = [  'numpy', 'networkx', 'scipy' ]
  )
