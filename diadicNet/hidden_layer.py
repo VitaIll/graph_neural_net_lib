@@ -1,19 +1,22 @@
 
-import numpy as np
-
-from diadicNet.hidden_neuron import HiddenNeuron
-from diadicNet.input_layer   import InputLayer
-from diadicNet.input_neuron  import InputNeuron
+import numpy as np 
+from hidden_neuron import HiddenNeuron
 
 class HiddenLayer:
    
-   def __init__(self, input_layer: InputLayer) -> None:
-      pass
+   def __init__(
+                self, 
+                unit_idx:            int,
+                unit_count:          int,
+                activation_function: str,
+                ) -> None:
+    
+    self.neuron_list = []
+
+    for idx in range(unit_count):
+      
+      neuron_idx = tuple(unit_idx, idx)
+      neuron     = HiddenNeuron(neuron_idx, activation_function)
+      
+      self.neuron_list.append(neuron)
    
-   
-   
-   def key_dictionary (self) -> dict:
-      pass
-   
-   def neuron_creator (self) -> HiddenNeuron:
-      pass

@@ -1,4 +1,4 @@
-from .input_neuron import InputNeuron
+from input_neuron import InputNeuron
 
 class InputLayer:
     ''' 

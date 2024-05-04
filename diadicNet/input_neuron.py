@@ -1,6 +1,6 @@
 
-import numpy              as np
-from .feature_extractor   import FeatureExtractor
+import numpy               as np
+from   feature_extractor   import FeatureExtractor
 
 class InputNeuron:
     ''' 
