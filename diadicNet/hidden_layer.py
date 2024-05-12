@@ -50,6 +50,16 @@ class HiddenLayer:
        neuron = self.neuron_list[neuron_id]
 
        return neuron.properties
+   
+   def get_values(self) -> ndarray:
+     
+     vals  = []
+
+     for neuron in self.neuron_list.values():
+       vals.append(neuron.output_value)
+
+     return np.array(vals)
+       
   
    
 
