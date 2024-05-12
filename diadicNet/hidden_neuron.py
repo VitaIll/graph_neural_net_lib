@@ -22,7 +22,7 @@ class HiddenNeuron:
       weights = np.random.random(size = len(self.features))
       self.__call__(weights= weights)
       
-      self.properties = { "weigths": self.weights, "features": self.features,"output_value": self.output_value}
+      self.properties = {"neuron_id":self.idx_pair, "weigths": self.weights, "features": self.features,"output_value": self.output_value}
 
    def __call__ (self,  weights: np.array) -> None:
            
