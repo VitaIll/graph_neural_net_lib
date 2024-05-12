@@ -13,4 +13,9 @@ class InputNeuron:
     def __init__(self, idx_tuple: tuple ,sub_matrix: np.ndarray) -> None:
           self.idx_tuple           = idx_tuple
           self.m_feature_extractor = FeatureExtractor(sub_matrix)
+
+          self.properties = {
+               "neuron_id": self.idx_tuple,
+               "features" : self.m_feature_extractor.m_feature_list
+          }
  

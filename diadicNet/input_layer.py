@@ -29,4 +29,4 @@ class InputLayer:
           
           neuron  = self.neuron_list[key]
 
-          return neuron.m_feature_extractor.m_feature_list
+          return neuron.properties

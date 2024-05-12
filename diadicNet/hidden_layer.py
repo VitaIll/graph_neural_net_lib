@@ -22,12 +22,13 @@ class HiddenLayer:
     for idx in range(1,unit_count):
       
       neuron_idx   = (unit_idx, idx)
-      feature_list = input_layer[neuron_idx]
+      feature_list = (input_layer[neuron_idx])['features']
 
       if neuron_idx == (unit_idx, unit_idx):
         pass
       else:
-        feature_list += input_layer[(unit_idx, unit_idx)]
+        feature_list += (input_layer[(unit_idx, unit_idx)])['features']
+        
 
       neuron            = HiddenNeuron(neuron_idx, feature_list, activation_function)
       neuron_index_pair = {neuron_idx: neuron}
@@ -45,10 +46,10 @@ class HiddenLayer:
         neuron(neuron_weights)
 
   
-   def __getitem__(self, neuron_id: tuple ) -> tuple:
-     neuron = self.neuron_list[neuron_id]
+   def __getitem__(self, neuron_id: tuple|None ) -> tuple:
+       neuron = self.neuron_list[neuron_id]
 
-     return (neuron.weights, neuron.features, neuron.output_value)
+       return neuron.properties
   
    
 
