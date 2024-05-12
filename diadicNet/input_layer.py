@@ -22,6 +22,8 @@ class InputLayer:
                  
                  self.neuron_list.update(neuron_key_pair)
 
+                 self.count += 1
+
     
     def __getitem__(self, key: tuple) -> list:
           

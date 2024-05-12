@@ -9,25 +9,26 @@ class HiddenNeuron:
    def __init__(
                 self,
                 idx_pair:            tuple, 
-                input_neuron_list:   list,
+                feature_list:        list,
                 activation_function: Optional[str] = "sigmoid"
                 ) -> None:
-   
-      self.features                   = np.array([1])
+      
+      features      =  [1.] + feature_list
+      self.features = np.array(features)
+
       self.activation_function_label  = activation_function
       self.idx_pair                   = idx_pair
 
-      for input_neuron in input_neuron_list:
-          self.features = np.append(self.features, input_neuron.m_feature_extractor.m_feature_list)
+      weights = np.random.random(size = len(self.features))
+      self.__call__(weights= weights)
 
 
-   def __call__ (self,  weights: np.array) -> float:
+   def __call__ (self,  weights: np.array) -> None:
            
            self.weights        = weights
            self.weighted_value = self.weights @ self.features
            self.output_value   = self.activation_function()
-           
-           return self.output_value
+         
    #--------------------------------------------------------------------------------------------------#
    
    def activation_function (self) -> float:
