@@ -7,7 +7,7 @@ class OtputLayer:
     def __init__(self,  hidden_layer: HiddenLayer) -> None:
         
         hidden_layer_vals    = hidden_layer.get_values()
-        self.__output_neuron = OutputNeuron(hidden_layer_vals)
+        self.__output_neuron = OutputNeuron(hidden_layer_vals, hidden_layer)
         self.__value         = self.__output_neuron.value()
 
     
@@ -18,6 +18,7 @@ class OtputLayer:
     
     def value(self) -> float:
         return self.__value
+    
     
     def properties(self) -> dict:
         return self.__output_neuron.properties

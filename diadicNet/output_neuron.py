@@ -3,10 +3,14 @@ import numpy as np
 from numpy  import ndarray
 from typing import Optional
 
+from hidden_layer import HiddenLayer
+
 class OutputNeuron:
 
-   def __init__(self, input_vals: ndarray) -> None:
+   def __init__(self, input_vals: ndarray, hidden_layer: HiddenLayer) -> None:
       
+      self.__hidden_layer = hidden_layer
+
       self.__dim     = len(input_vals)
       self.__vals    = input_vals
       self.__weights = np.random.random(self.__dim)
@@ -19,6 +23,9 @@ class OutputNeuron:
    
   
    def update(self, weights: Optional[ndarray|None] = None) -> None:
+      
+      self.__vals = self.__hidden_layer.get_values()
+
       if weights == None:   
          self.__output_val = np.exp(np.log(self.__vals)@self.__weights)
       else:
