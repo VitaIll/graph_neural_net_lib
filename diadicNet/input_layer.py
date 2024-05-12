@@ -6,19 +6,25 @@ class InputLayer:
           - for now assumes output for a single macro unit, e.g. one firm/ state etc..
           - network partition is assumed to be repressented by list of sub_matricies,
             we can also consider alternative containers.
+          - neuron list updated to dictionary
     '''
+    
     def __init__(self, modeled_unit: int, network_partition: list) -> None:
            
-           self.neuron_list = []
+           self.neuron_list = {}
            self.count       = 1
 
            for sub_matrix in network_partition:
                  
-                 idx_tuple     = (modeled_unit, self.count)
-                 neuron        = InputNeuron (idx_tuple ,sub_matrix)
-                
-                 self.neuron_list.append(neuron)
+                 idx_tuple       = (modeled_unit, self.count)
+                 neuron          = InputNeuron (idx_tuple ,sub_matrix)
+                 neuron_key_pair = {idx_tuple: neuron}
                  
-                 self.count    += 1
-                 
- 
+                 self.neuron_list.update(neuron_key_pair)
+
+    
+    def __getitem__(self, key: tuple) -> list:
+          
+          neuron  = self.neuron_list[key]
+
+          return neuron.m_feature_extractor.m_feature_list
