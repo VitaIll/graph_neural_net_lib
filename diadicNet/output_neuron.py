@@ -18,7 +18,7 @@ class OutputNeuron:
       self.update()
    
    
-   def __call__ (self, weights: ndarray) -> None:
+   def __call__ (self, weights: Optional[ndarray|None] = None) -> None:
       self.update(weights)
    
   

@@ -1,4 +1,8 @@
-from input_neuron import InputNeuron
+from numpy             import ndarray, array
+
+from feature_extractor import FeatureExtractor
+from input_neuron      import InputNeuron
+
 
 class InputLayer:
     ''' 
@@ -9,24 +13,30 @@ class InputLayer:
           - neuron list updated to dictionary
     '''
     
-    def __init__(self, modeled_unit: int, network_partition: list) -> None:
-           
-           self.neuron_list = {}
-           self.count       = 1
+    def __init__(self, neuron_ids: list[tuple[int]],  feature_list: list[str]) -> None:
+          ''' 
+              Initiate input layer by a passing neuron ids list,
+              with elements stored as [(m,n)].
+          '''
+          self.feature_list      = feature_list
+          self.feature_extractor = FeatureExtractor(feature_list)                # create reusable feature extractor instance
+          self.neuron_ids        = neuron_ids                                    # store network partition
+          
+          self.neuron_list = {}
 
-           for sub_matrix in network_partition:
-                 
-                 idx_tuple       = (modeled_unit, self.count)
-                 neuron          = InputNeuron (idx_tuple ,sub_matrix)
-                 neuron_key_pair = {idx_tuple: neuron}
-                 
-                 self.neuron_list.update(neuron_key_pair)
-
-                 self.count += 1
+          for id in neuron_ids:
+               self.neuron_list[id] = InputNeuron(id, self.feature_extractor)   # initiate input neurons
 
     
-    def __getitem__(self, key: tuple) -> list:
-          
-          neuron  = self.neuron_list[key]
+    def __call__(self, network_partition: dict[tuple[int], ndarray[int]]) -> None:
+         ''' Pass data to the input layer. '''
 
-          return neuron.properties
+         for id, neuron in self.neuron_list.items():
+              adj_matrix = network_partition[id]
+              neuron(adj_matrix)
+    
+    
+    def __getitem__(self, id: tuple[int]) -> ndarray:
+         ''' Get fetures from neuron identified by the (m,n) tuple id.'''
+         neuron         = self.neuron_list[id]
+         feature_vector = array(list(neuron.features.values()))

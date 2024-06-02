@@ -1,5 +1,7 @@
 
-import numpy               as np
+from   typing              import Union
+from   numpy               import ndarray
+
 from   feature_extractor   import FeatureExtractor
 
 class InputNeuron:
@@ -10,12 +12,18 @@ class InputNeuron:
           - contain features extracted from the sub-matrix defining 
             conections between worker of firm i and j.
     '''
-    def __init__(self, idx_tuple: tuple ,sub_matrix: np.ndarray) -> None:
-          self.idx_tuple           = idx_tuple
-          self.m_feature_extractor = FeatureExtractor(sub_matrix)
-
-          self.properties = {
-               "neuron_id": self.idx_tuple,
-               "features" : self.m_feature_extractor.m_feature_list
-          }
- 
+    
+    def __init__(self, neuron_id: tuple[int], feature_extractor: FeatureExtractor) -> None:
+        ''' Initiate neuron with id (m,n) tuple, extractor instance and list of required features.'''
+        self.id            = neuron_id
+        self.extractor     = feature_extractor
+    
+   
+    def __call__(self, adjacency_matrix: ndarray[int]) -> None:
+        ''' Compute fetures from partial adjacency matrix.'''
+        self.features = self.extractor(adjacency_matrix)
+  
+    
+    def __getitem__(self, feature_name: str) -> Union[float, ndarray]:
+        ''' Retrieve feature by its name.'''
+        return self.features[feature_name]
