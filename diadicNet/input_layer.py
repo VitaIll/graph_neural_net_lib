@@ -36,7 +36,7 @@ class InputLayer:
               neuron(adj_matrix)
     
     
-    def __getitem__(self, id: tuple[int]) -> ndarray:
+    def __getitem__(self, id: tuple[int]) -> InputNeuron:
          ''' Get fetures from neuron identified by the (m,n) tuple id.'''
-         neuron         = self.neuron_list[id]
-         feature_vector = array(list(neuron.features.values()))
+         return self.neuron_list[id]
+        

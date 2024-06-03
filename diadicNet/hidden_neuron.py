@@ -11,7 +11,7 @@ class HiddenNeuron:
                 self,
                 id:                  tuple[int], 
                 input_neurons:       list[InputNeuron],
-                activation_function: Optional[str]     = "sigmoid"
+                activation_function: Optional[str]     = "expit"
                 ) -> None:
       
       self.id = id
@@ -23,6 +23,7 @@ class HiddenNeuron:
      
      
       feature_list = []
+
       for neuron in input_neurons:
           features  = [1.] + list(neuron.features.values())
           feature_list.append(features)
@@ -37,5 +38,5 @@ class HiddenNeuron:
       weighted_value      = self.weights @ self.features
       self.output_value   = self.activation_function(weighted_value)
 
-      self.properties = {"neuron_id":self.id, "weigths": self.weights, "features": self.features,"output_value": self.output_value}
+      self.properties     = {"neuron_id":self.id, "weigths": self.weights, "features": self.features,"output_value": self.output_value}
          

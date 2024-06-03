@@ -10,33 +10,21 @@ class HiddenLayer:
    
    def __init__(
                 self, 
-                unit_idx:            int,
-                unit_count:          int,
+                input_to_hidden_map: dict[tuple[int], list[tuple[int]]],
                 activation_function: str,
                 input_layer:         InputLayer       
                
                 ) -> None:
     
-    self.neuron_list                = {}
-    self.source_layer               = input_layer
-    self.unit_count                 = unit_count
-    self.unit_id                    = unit_idx
-    self.activation_funtion         = activation_function
+    self.neuron_list         = {}
+    self.source_layer        = input_layer
+    self.activation_funtion  = activation_function
     
-    for idx in range(1,unit_count):
-      
-      neuron_idx   = (unit_idx, idx)
-      feature_list = (input_layer[neuron_idx])['features']
+    for neuron_id, input_ids in input_to_hidden_map:
 
-      if neuron_idx == (unit_idx, unit_idx):
-        pass
-      else:
-        feature_list += (input_layer[(unit_idx, unit_idx)])['features']
-        
-      neuron            = HiddenNeuron(neuron_idx, feature_list, activation_function)
-      neuron_index_pair = {neuron_idx: neuron}
+      input_neurons               = [self.source_layer[id] for id in input_ids]  # get corresponding input neurons
+      self.neuron_list[neuron_id] =  HiddenNeuron(input_neurons, "expit")
 
-      self.neuron_list.update(neuron_index_pair)
 
    
    def __call__(self, weigts: dict) -> None:
