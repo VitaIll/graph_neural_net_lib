@@ -1,45 +1,38 @@
-import numpy as np
-
-from numpy  import ndarray
-from typing import Optional
-
-from hidden_layer import HiddenLayer
+from numpy         import ndarray, append, array
+from hidden_neuron import HiddenNeuron
 
 class OutputNeuron:
 
-   def __init__(self, input_vals: ndarray, hidden_layer: HiddenLayer) -> None:
+   def __init__(self, neuron_list: list[HiddenNeuron], factor_data: ndarray[float]) -> None:
       
-      self.__hidden_layer = hidden_layer
-
-      self.__dim     = len(input_vals)
-      self.__vals    = input_vals
-      self.__weights = np.random.random(self.__dim)
-
-      self.update()
+      self.source_neurons =  neuron_list
+      self.factors        =  factor_data
+      self.output_val     =  0
    
    
-   def __call__ (self, weights: Optional[ndarray|None] = None) -> None:
-      self.update(weights)
-   
-  
-   def update(self, weights: Optional[ndarray|None] = None) -> None:
+   def __call__ (self, weights: ndarray[float]) -> None:
       
-      self.__vals = self.__hidden_layer.get_values()
+      val_list = []
 
-      if weights == None:   
-         self.__output_val = np.exp(np.log(self.__vals)@self.__weights)
-      else:
-         self.__output_val = np.exp(np.log(self.__vals)@ weights)
-
-      self.write_properties()
-
+      for neuron in self.source_neurons:
+         val_list.append(neuron.output_value)
    
-   def value(self) -> ndarray:
-      return self.__output_val
+      w               = array(val_list)
+      self.output_val = self.cb_function(weights, w)
    
+   
+   def cb_function(self, weights:ndarray[float], w: ndarray[float]) -> float:
 
-   def write_properties(self):
-      self.properties = {"input_vals": self.__vals, "weights": self.__weights, "output_val": self.__output_val}
+      multiplier = weights[0]
+      coefs      = weights[1:]
+      last_coef  = 1 - coefs.sum()
+      coefs      = append(coefs,last_coef)
+      coefs      = coefs/coefs.sum()
 
+      output     = multiplier
 
+      for i in range(len(self.factors)):
+         output *= (self.factors[i] * w[i]) ** coefs[i]
+
+      return output
    
