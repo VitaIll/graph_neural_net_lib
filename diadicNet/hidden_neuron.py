@@ -19,7 +19,7 @@ class HiddenNeuron:
       self.id            = id
       self.input_neurons = input_neurons
 
-      if Utils.function_exists(activation_function):
+      if Utils.function_exists(special,activation_function):
           self.activation_function = getattr(special, activation_function)
       else:
           raise ValueError(f"{activation_function} is not available in scipy.special module.")
@@ -31,7 +31,9 @@ class HiddenNeuron:
 
    def __call__ (self,  weights: ndarray[float]) -> None:
       ''' Compute transformed weighted value of features.'''
-           
+      
+      self.__get_features()  # reload features in case input neuron instances change
+
       self.weights        = weights
       weighted_value      = self.weights @ self.features
       self.output_value   = self.activation_function(weighted_value)
@@ -46,6 +48,8 @@ class HiddenNeuron:
     feature_list = []
     
     for neuron in self.input_neurons:
+          test = neuron.features.values()
+          print((test, type(test)))
           features  = [1.] + list(neuron.features.values())
           feature_list.append(features)
      

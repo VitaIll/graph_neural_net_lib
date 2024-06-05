@@ -27,7 +27,10 @@ class InputLayer:
           self.neuron_list = {}
 
           for id in neuron_ids:
-               self.neuron_list[id] = InputNeuron(id, self.feature_extractor)   # initiate input neurons
+               self.neuron_list[id] = InputNeuron(id, self.feature_extractor)    # initiate input neurons
+
+          for id, neuron in self.neuron_list.items():
+               neuron(self.network_partition[id])
 
     
     def __call__(self, network_partition: Optional[dict[tuple[int], ndarray[int]]|None] = None) -> None:

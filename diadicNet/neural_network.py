@@ -19,7 +19,7 @@ class DiadicNetwork:
             
             ) -> None:
         
-        self.input_layer  = InputLayer(input_ids = input_ids, feature_list= feature_list, network_partition = network_partition)
+        self.input_layer  = InputLayer(neuron_ids = input_ids, feature_list= feature_list, network_partition = network_partition)
         self.hidden_layer = HiddenLayer(input_to_hidden_map = input_to_hidden_map, activation_function = 'expit', input_layer = self.input_layer)
         self.output_layer = OtputLayer(hidden_layer = self.hidden_layer, factor_data = factor_data)
         

@@ -36,5 +36,7 @@ class FeatureExtractor:
             
             method    = getattr(networkx, stat)
             res[stat] = method(graph)
+        print(res)
+        return res
                                                   
 
