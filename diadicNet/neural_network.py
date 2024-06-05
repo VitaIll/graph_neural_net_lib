@@ -1,4 +1,6 @@
-from numpy        import ndarray
+from typing       import Optional
+
+from numpy        import ndarray, array
 
 from input_layer  import InputLayer
 from hidden_layer import HiddenLayer
@@ -17,4 +19,22 @@ class DiadicNetwork:
             
             ) -> None:
         
-        self.input_layer = InputLayer(input_ids, feature_list)
+        self.input_layer  = InputLayer(input_ids = input_ids, feature_list= feature_list, network_partition = network_partition)
+        self.hidden_layer = HiddenLayer(input_to_hidden_map = input_to_hidden_map, activation_function = 'expit', input_layer = self.input_layer)
+        self.output_layer = OtputLayer(hidden_layer = self.hidden_layer, factor_data = factor_data)
+        
+        self.hidden_weight_dim = 0
+        self.output_weight_dim = 0
+        self.weight_dim        = self.hidden_weight_dim + self.output_weight_dim
+    
+    
+    def __call__( self, weights: dict ) -> float:
+        
+        weights_hidden = weights['hidden']
+        weights_output = weights['output']
+
+        self.hidden_layer(weights_hidden)
+        self.output_layer(weights_output)
+
+        return self.output_layer.value
+
