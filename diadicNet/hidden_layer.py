@@ -22,7 +22,7 @@ class HiddenLayer:
     for neuron_id, input_ids in input_to_hidden_map.items():
 
       self.input_neurons          = [self.source_layer[id] for id in input_ids]                # get corresponding input neurons
-      self.neuron_list[neuron_id] =  HiddenNeuron(self.input_neurons, self.activation_funtion)
+      self.neuron_list[neuron_id] =  HiddenNeuron(neuron_id, self.input_neurons, self.activation_funtion)
 
 
    

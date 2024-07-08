@@ -14,7 +14,7 @@ class OutputNeuron:
       
       val_list = []
 
-      for neuron in self.source_neurons:
+      for neuron in self.source_neurons.values():
          val_list.append(neuron.output_value)
    
       w               = array(val_list)

@@ -19,12 +19,15 @@ class DiadicNetwork:
             
             ) -> None:
         
+        self.input_ids    = input_ids
+
         self.input_layer  = InputLayer(neuron_ids = input_ids, feature_list= feature_list, network_partition = network_partition)
         self.hidden_layer = HiddenLayer(input_to_hidden_map = input_to_hidden_map, activation_function = 'expit', input_layer = self.input_layer)
         self.output_layer = OtputLayer(hidden_layer = self.hidden_layer, factor_data = factor_data)
         
-        self.hidden_weight_dim = 0
-        self.output_weight_dim = 0
+        self.neuron_dim        = (len(feature_list)+1)
+        self.hidden_weight_dim = (len(feature_list)+1) * len(input_ids)
+        self.output_weight_dim = len(factor_data)
         self.weight_dim        = self.hidden_weight_dim + self.output_weight_dim
     
     
