@@ -1,5 +1,5 @@
 import networkx 
-
+from networkx import from_numpy_array
 from   numpy import ndarray
 from   utils import Utils, Reference
 
@@ -14,9 +14,9 @@ class FeatureExtractor:
     
     def __init__(self, network_stats: list[str]) -> None:
         
+        self.valid_stats = []
+        
         for stat in network_stats:
-            
-            self.valid_stats = []
 
             if Utils.function_exists(networkx, stat):       # check that networkx indeed contains desired function
                 
@@ -28,15 +28,14 @@ class FeatureExtractor:
 
     
     def __call__(self, adjacency_matrix: ndarray[int]) -> dict[tuple[int],float]:
-       
-        graph = networkx.from_numpy_array(adjacency_matrix)  # convert to networkx native type
+        graph = from_numpy_array(adjacency_matrix)  # convert to networkx native type
         res   = {}
         
         for stat in self.valid_stats:                        # eval network statistics for all valid names in the list
             
             method    = getattr(networkx, stat)
             res[stat] = method(graph)
-        print(res)
+   
         return res
                                                   
 

@@ -33,7 +33,10 @@ class InputLayer:
                neuron(self.network_partition[id])
 
     
-    def __call__(self, network_partition: Optional[dict[tuple[int], ndarray[int]]|None] = None) -> None:
+    def __call__(
+              self, 
+              network_partition: Optional[dict[tuple[int], ndarray[int]]|None] = None
+              ) -> None:
          ''' Pass data to the input layer. '''
          
          if network_partition is not None:
@@ -44,6 +47,7 @@ class InputLayer:
          for id, neuron in self.neuron_list.items():
               adj_matrix = network_partition[id]
               neuron(adj_matrix)
+          
     
     
     def __getitem__(self, id: tuple[int]) -> InputNeuron:

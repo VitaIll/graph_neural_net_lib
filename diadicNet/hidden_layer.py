@@ -26,12 +26,12 @@ class HiddenLayer:
 
 
    
-   def __call__(self, weigts: dict[tuple[int], ndarray]) -> None:
+   def __call__(self, weigths: dict[tuple[int], ndarray]) -> None:
       
       for neuron_id in self.neuron_list.keys():
         
         neuron         = self.neuron_list[neuron_id]
-        neuron_weights = weigts[neuron_id]
+        neuron_weights = weigths[neuron_id]
 
         neuron(neuron_weights)
 
